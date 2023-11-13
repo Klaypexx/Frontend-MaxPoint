@@ -1,9 +1,10 @@
+type FontFamily = string;
+
 type Color = string;
 
 type Filter = {
-  color: 'grey' | 'red' | 'green' | 'blue' | 'black';
+  color: string[];
 };
-
 
 type Size = {
   width: number;
@@ -15,20 +16,20 @@ type Position = {
   y: number;
 };
 
-
 type Block = {
   id: string;
   position: Position;
   size: Size;
+  rotation: number;
 };
 
 type Slide = {
   id: string;
   background: Color;
-  size: Size;
-  filter: Filter;
-  selectObjects: Graphics;
-  objects: Graphics;
+  // size: Size;
+  // filter: Filter;
+  selectObjects: Array<Text | Image | Primitive>;
+  objects: Array<Text | Image | Primitive>;
 };
 
 type Char = {
@@ -37,48 +38,37 @@ type Char = {
   fontFamily: string;
   color: Color;
   bold: boolean;
-  filter: Filter;
+  id: string;
 };
 
 //Графика (текст, фигуры и изображения)
-type Graphics = {
-  Objects: Array<TextBlock | ImageBlock | GraphicBlock>;
-}
-
-type Figure = 'rectangle' | 'triangle' | 'circle';
-
-type TextBlock = Block & {
-  type: 'text';
-  chars: Array<Char>;
+type Text = Block & {
+  type: "text";
+  data: {
+    text: Char[];
+  };
 };
 
-type ImageBlock = Block & {
-  type: 'image';
-  data: string;
+type Image = Block & {
+  type: "image";
+  data: {
+    alt: string;
+    src: string;
+    size: Size;
+  };
 };
 
-type GraphicBlock = Block & {
-  type: 'graphic'; 
-  color: Color;
-  size: Size;
-  form: Figure;
+type Primitive = Block & {
+  type: "primitive";
+  data: {
+    size: Size;
+    form: "triangle" | "ellipse" | "rectangle";
+  };
 };
 
-
-// Сайд бар операций
-type SideBar = {
-  Objects: Array<SideBarElement>;
-}
-
-type SideBarElement = {
-  id: string;
-  data: object;
-}
 type Operation = {
   id: string;
   data: object;
-  prev: Operation | null;
-  next: Operation | null;
 };
 
 type History = {
@@ -86,11 +76,10 @@ type History = {
   undidOperations: Operation[];
 };
 
-
-type Preview = Slide & {
-  prev: Preview | null;
-  next: Preview | null;
-};
+// type Preview = Slide & {
+//   prev: Preview | null;
+//   next: Preview | null;
+// };
 
 type Presentation = {
   name: string;
@@ -98,7 +87,13 @@ type Presentation = {
   selectSlides: Slide[];
   slides: Slide[];
   operation: Operation;
-  preview: Preview;
+  // preview: Preview;
+};
+
+type Option = {
+  id: string;
+  value: number | string;
+  label: string;
 };
 
 type MenuElement = {
@@ -111,23 +106,23 @@ type Menu = {
   menuElements: MenuElement[];
 };
 
-
 export type {
+  FontFamily,
   Color,
-  Menu,
-  History,
   Filter,
   Size,
   Position,
   Block,
   Slide,
   Char,
-  Figure,
-  TextBlock,
-  ImageBlock,
-  GraphicBlock,
+  Text,
+  Image,
+  Primitive,
   Operation,
-  Preview,
-  SideBar,
-  Presentation
-}
+  History,
+  // Preview,
+  Presentation,
+  Option,
+  MenuElement,
+  Menu,
+};
