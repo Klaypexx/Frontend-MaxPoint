@@ -1,5 +1,7 @@
 import style from "./WorkSpace.module.css";
 import Left_ToolBar from "../Left_ToolBar/Left_ToolBar";
+import MainWS from "../MainWS/MainWS.tsx";
+import Presentation from "../../types/types.ts"
 
 function WorkSpace () {
 	return (
@@ -7,13 +9,8 @@ function WorkSpace () {
 			<Left_ToolBar />
 
 			<section className={style.working_block_grid}>
-				<div className={style.working_block}>
-					<div className={style.working_block__items}>
-						<p>Slide name</p>
-					<div className={style.working_block__slide}></div>
-				</div>
-						
-				</div>
+				<MainWS 
+				slide = {Presentation.currentslide}/>
 
 				<div className={style.slide_block}>
 						<div className={style.slide_block__item}>
