@@ -1,24 +1,23 @@
-import {Slide as Pslide} from "../../types/types.ts";
-import {Block} from "../Block/Block.ts";
-import "../Slide/Slide.css";
+/* eslint-disable sort-imports */
+import { CSSProperties } from "react"; //типизация стилей
+import { Slide as PropSlide } from "../../types/types";
+import "./Slide.css";
 
 type SlideProps = {
-    slide: Pslide;
-    Selected: boolean;
-}
+  slide: PropSlide;
+  slideName: number;
+};
 
-function Slide({slide, Selected}: SlideProps) {
-    let SlideSelected = "";
-    const style = {
-        background: slide.background,
-      };
-    if (Selected) {
-        SlideSelected = "Slide__selected";
-    }
-    return {
-        <div className>
-        </div>
-    }
+function Slide({ slide, slideName }: SlideProps) {
+  const style: CSSProperties = {
+    background: slide.background,
+  };
+
+  return (
+    <div key={slide.id} className="slide" style={style}>
+      <h2>{slideName}</h2>
+    </div>
+  );
 }
 
 export default Slide;
