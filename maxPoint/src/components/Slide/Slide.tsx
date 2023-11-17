@@ -8,14 +8,13 @@ type SlideProps = {
   slideName: number;
 };
 
-function Slide({ slide, slideName }: SlideProps) {
+function Slide({ slide }: SlideProps) {
   const style: CSSProperties = {
     background: slide.background,
   };
 
   return (
     <div key={slide.id} className="slide" style={style}>
-      <h2>{slideName}</h2>
     </div>
   );
 }

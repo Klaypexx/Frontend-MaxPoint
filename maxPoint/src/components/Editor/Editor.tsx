@@ -3,6 +3,7 @@ import "./Editor.css";
 import Left_ToolBar from "../Left_ToolBar/Left_ToolBar";
 import SlideBar from "../SlideBar/SlideBar";
 import { Presentation } from "../../types/types";
+import MainWS from "../MainWS/MainWS";
 
 type EditorProps = {
   presentation: Presentation;
@@ -17,7 +18,10 @@ function Editor({ presentation }: EditorProps) {
         <div className="working_block">
           <div className="working_block__items">
             <p>Slide name</p>
-            <div className="working_block__slide"></div>
+            <div className="working_block__slide">
+              <MainWS 
+              slide={presentation.currentslide}/>
+            </div>
           </div>
         </div>
 

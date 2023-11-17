@@ -4,16 +4,18 @@ import Slide from "../Slide/Slide.tsx";
 
 type WorkspaceProps = {
     slide: PSlide | null;
+    slideName: string;
 }
 
-function MainWS ({slide}: WorkspaceProps) {
+function MainWS ({ slide, slideName }: WorkspaceProps) {
         if (slide != null) {
             return (
                 <div className={style.working_block}>
                     <div className={style.working_block__items}>
-                        <p>Slide name</p>
+                        <p>{slideName}</p>
                     <div className={style.working_block__slide}>
-                        <Slide />
+                        <Slide
+                        slide={slide} />
                     </div>
                     </div>	
                 </div>
