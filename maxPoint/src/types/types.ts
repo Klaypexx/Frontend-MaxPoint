@@ -25,7 +25,7 @@ type Block = {
 
 type Slide = {
   id: string;
-  name: string;
+  name: number;
   background: Color;
   // size: Size;
   // filter: Filter;

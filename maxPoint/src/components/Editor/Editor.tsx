@@ -15,16 +15,7 @@ function Editor({ presentation }: EditorProps) {
       <Left_ToolBar />
 
       <section className="working_block_grid">
-        <div className="working_block">
-          <div className="working_block__items">
-            <p>Slide name</p>
-            <div className="working_block__slide">
-              <MainWS 
-              slide={presentation.currentslide}/>
-            </div>
-          </div>
-        </div>
-
+        <MainWS slide={presentation.currentSlide} />
         <SlideBar slides={presentation.slides} />
       </section>
     </div>

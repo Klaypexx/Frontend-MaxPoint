@@ -14,8 +14,9 @@ function Image({data}: ImageProps) {
         height: data.size.height,
         width: data.size.width,
     };
-    return 
-        <img src={data.src} style={style}> alt = {data.alt}
-};
+    return (
+        <img src= {data.src} alt={data.alt} style = {style}></img>
+    )
+}
 
 export default Image;
