@@ -1,7 +1,7 @@
 /* eslint-disable sort-imports */
 import { CSSProperties } from "react"; //типизация стилей
 import { Slide as TSlide } from "../../types/types";
-import "./Slide.css";
+import Tstyle from "./Slide.module.css";
 import Block from "../Block/Block";
 import classNames from "classnames";
 
@@ -18,7 +18,7 @@ function Slide({ slide, className }: SlideProps) {
   return (
     <div
       key={slide.id}
-      className={classNames("slide", className)}
+      className={classNames(Tstyle.slide, className)}
       style={style}
     >
       <p> {slide.name} </p>;

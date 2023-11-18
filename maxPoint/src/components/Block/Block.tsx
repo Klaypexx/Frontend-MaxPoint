@@ -1,4 +1,5 @@
-import "./Block.css";
+import Tstyle from "./Block.module.css";
+// eslint-disable-next-line sort-imports
 import { CSSProperties } from "react";
 import { Image as TImage } from "../../types/types";
 import { Primitive as TPrimitive } from "../../types/types";
@@ -16,10 +17,9 @@ function Block({ position, size, type, data }: BlockProps) {
     left: position.x,
     top: position.y,
     width: size.width,
-    
   };
   return (
-    <div className="block" style={style}>
+    <div className={Tstyle.block} style={style}>
       {type === "image" && <Image data={data} />}
       {type === "primitive" && <Primitive data={data} />}
       {type === "text" && <Text data={data} />}

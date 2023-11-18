@@ -1,5 +1,5 @@
 /* eslint-disable sort-imports */
-import "./SlideBar.css";
+import style from "./SlideBar.module.css";
 import Slide from "../Slide/Slide";
 import { Slide as PropSlide } from "../../types/types";
 
@@ -9,11 +9,11 @@ type SlideBarProps = {
 
 function SlideBar({ slides }: SlideBarProps) {
   return (
-    <div className="slide_block">
+    <div className={style.slide_block}>
       {slides.length > 0 ? (
         slides.map((slide, index) => (
-          <div key={index} className="slide_block__wrapper">
-            <Slide slide={slide} className="slide_block_slide"/>
+          <div key={index} className={style.slide_block__wrapper}>
+            <Slide slide={slide} className={style.slide_block_slide} />
           </div>
         ))
       ) : (
