@@ -93,6 +93,14 @@
     padding: 2px 6px;
 }
 
+.slide_button:active {
+    opacity: 0.3;
+}
+
+.slide_button:focus {
+    outline: none;
+}
+
 .slide_button_move {
     top: 36px;
 }
