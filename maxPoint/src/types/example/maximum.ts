@@ -43,8 +43,8 @@ const workSize: Size = {
 }
 
 const textSize: Size = {
-  height: 60,
-  width: 250,
+  height: 50,
+  width: 100,
 };
 
 const position: Position = {
@@ -56,9 +56,11 @@ const position: Position = {
 const text: Text = {
   type: "text",
   data: {
-    value: "maxPoint",
-    fontSize: 50,
+    value: "",
+    fontSize: 20,
     fontFamily: fontFamily,
+    fontStyle: 'normal',
+    textDecoration: 'none',
     color: textColor,
     bold: true,
   },
@@ -185,3 +187,19 @@ export const presentationSlice: PresentationSliceState = {
 };
 
 export default presentation;
+
+
+// const ChangeFontSize = (event: any) => {
+//   console.log(event.target.value)
+//   if (currentSlide && selectedObject && selectedObject.type === "text") {
+//     const { ...textData } = selectedObject.data;
+//     const newCurrentObject: TextData = {
+//       data: {
+//         ...textData,
+//         fontSize: event.target.value,
+//       },
+//     };
+//     changeTextSettings(newCurrentObject);
+//     setCounter(event.target.value);
+//   }
+// };

@@ -16,17 +16,17 @@ type BlockProps = TPrimitive | TImage | TText;
 
 function getObject(props: BlockProps) {
   switch (props.type) {
-    case "text": 
-      return <Text {...props} />
+    case "text":
+      return <Text {...props} />;
     case "image":
-      return <Image {...props} />
+      return <Image {...props} />;
     case "primitive":
-      return <Primitive {...props} />
+      return <Primitive {...props} />;
   }
 }
 
 function Block(props: BlockProps) {
-  const {size, position, id } = props;
+  const { size, position, id } = props;
   const { presentation, setPresentation } = useContext(PresentationContext);
   const newPresentation = { ...presentation };
   const currentSelectObject = newPresentation.slides.find(
@@ -35,7 +35,6 @@ function Block(props: BlockProps) {
   const currentSlide = newPresentation.slides.find(
     (slide) => slide.id === newPresentation.currentSlideID,
   );
-  console.log('Перерисовка')
 
   const styles: CSSProperties = {
     height: size.height,
@@ -49,6 +48,7 @@ function Block(props: BlockProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   const toggleArea = () => {
+    console.log('Сработал toggle area')
     const currentSlide = newPresentation.slides.find(
       (slide) => slide.id === presentation.currentSlideID,
     );
@@ -85,12 +85,12 @@ function Block(props: BlockProps) {
   const setSize = (size: { height: number; width: number }) => {
     if (currentSlide) {
       const updatedObjectsSize = currentSlide.objects.map((obj) =>
-        obj.id === id && (obj.type === "primitive" || obj.type === "image")
+        obj.id === id
           ? {
               ...obj,
               size: {
-                height: size.height < 100 ? 100 : size.height,
-                width: size.width < 100 ? 100 : size.width,
+                height: size.height,
+                width: size.width,
               },
             }
           : obj,
@@ -134,7 +134,6 @@ function Block(props: BlockProps) {
       } else {
         onChangeSize({
           onDrag: (dragEvent) => {
-            console.log("перерисовка");
             dragEvent.preventDefault();
             const sizes = {
               height: size.height + dragEvent.clientY - mouseDownEvent.clientY,
