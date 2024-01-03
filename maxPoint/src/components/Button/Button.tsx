@@ -22,8 +22,6 @@ function Button() {
 
   const [counter, setCounter] = useState(20);
 
-
-
   const onFontSizeChange = (event: any) => {
     if (currentSlide && selectedObject && selectedObject.type === "text") {
       const { ...textData } = selectedObject.data;
@@ -35,6 +33,21 @@ function Button() {
       };
       changeTextSettings(newCurrentObject);
       setCounter(event.target.value);
+    }
+  };
+
+  // const [color, setColor] = useState("#FFFFFF");
+
+  const changeColor = (event: any) => {
+    if (currentSlide && selectedObject && selectedObject.type === "text") {
+      const { ...textData } = selectedObject.data;
+      const newCurrentObject: TextData = {
+        data: {
+          ...textData,
+          color: event.target.value,
+        },
+      };
+      changeTextSettings(newCurrentObject);
     }
   };
 
@@ -178,6 +191,12 @@ function Button() {
         <img className={style.button_img} src={zalivka} alt="заливка"></img>
       </button>
 
+      <input 
+        type="color"
+        className={style.colorPicker}
+        onChange={changeColor}
+      />
+
       <div>
         Font:
         <select defaultValue={'Arial'} onChange={changefontFamily}>
@@ -192,6 +211,7 @@ function Button() {
           <option value="Brush Script MT">Brush Script MT</option>
         </select>
       </div>
+
     </div>
   );
 }
