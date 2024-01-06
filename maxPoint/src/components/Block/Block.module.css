@@ -4,6 +4,7 @@
 }
 
 .selectArea {
-    outline: dashed red;
-    outline-offset: 2px;
+    box-shadow: red 0 0 4px 6px;
+    height: auto;
+    width: auto;
 }

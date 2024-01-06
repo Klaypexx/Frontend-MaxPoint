@@ -27,74 +27,56 @@ interface Slide {
   id: string,
   name: string;
   background: Color;
-  // size: Size;
-  // filter: Filter;
-  selectObjects: Array<Text | Image | Primitive>;
+  selectObjects: string | null;
   objects: Array<Text | Image | Primitive>;
 };
 
-type Char = {
-  value: string;
-  fontSize: number;
-  fontFamily: string;
-  color: TColor;
-  bold: boolean;
-  id: string;
-};
+interface TextData {
+  data: {
+    value: string;
+    fontSize: number;
+    fontFamily: string;
+    fontStyle: string;
+    textDecoration: string;
+    color: TColor;
+    bold: boolean;
+  }
+}
+
+interface ImageData {
+  data: {
+    alt?: string;
+    src?: string;
+  };
+}
+
+interface PrimitiveData {
+  data: {
+    form?: "triangle" | "ellipse" | "rectangle";
+    fill: string;
+  };
+}
 
 //Графика (текст, фигуры и изображения)
-interface Text extends Block {
+interface Text extends Block, TextData {
   type: "text";
-  data: {
-    text: Char[];
-    size: Size;
-  };
+  size: Size;
 }
-// type Text = Block & {
-//   type: "text";
-//   data: {
-//     text: Char[];
-//   };
-// };
 
-interface Image extends Block {
+interface Image extends Block, ImageData {
   type: "image";
-  data: {
-    alt: string;
-    src: string;
-    size: Size;
-  };
+  size: Size;
 }
 
-type Primitive = Block & {
+interface Primitive extends Block, PrimitiveData {
   type: "primitive";
-  data: {
-    size: Size;
-    form: "triangle" | "ellipse" | "rectangle";
-  };
+  size: Size;
 };
-
-type Operation = {
-  id: string;
-  data: object;
-};
-
-type History = {
-  operations: Operation[];
-  undidOperations: Operation[];
-};
-
-// type Preview = Slide & {
-//   prev: Preview | null;
-//   next: Preview | null;
-// };
 
 type Presentation = {
   name: string;
   currentSlideID: string | null;
   slides: Slide[];
-  operation: Operation;
-  // preview: Preview;
 };
 
 interface PresentationSliceState {
@@ -126,16 +108,14 @@ export type {
   Position,
   Block,
   Slide,
-  Char,
   Text,
   Image,
   Primitive,
-  Operation,
-  History,
-  // Preview,
   Presentation,
   PresentationSliceState,
   Option,
   MenuElement,
   Menu,
+  TextData,
+  PrimitiveData,
 };

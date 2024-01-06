@@ -1,47 +1,60 @@
-/* eslint-disable sort-imports */
-import style from "./SlideBar.module.css";
-import Slide from "../Slide/Slide";
 import Plus from "../../resources/img/plus.png";
+import { PresentationContext } from "../../context/context";
+import SlideList from "../SlideList/SlideList";
+import { Slide as TSlide } from "../../types/types";
 import classNames from "classnames";
-import { useSelector } from "react-redux";
-import { allData } from "../../redux/slide/selectors";
-import { useAppDispatch } from "../../redux/store";
-import { setNewCurentSlideID } from "../../redux/slide/slice";
+import style from "./SlideBar.module.css";
+import { useContext } from "react";
+import { useDndList } from "../../hooks/useDnD/useDragSlideList";
+import { v4 as uuidv4 } from "uuid";
 
 function SlideBar() {
-  const dispatch = useAppDispatch();
-  const data = useSelector(allData);
-  const currId = data.currentSlideID;
-  const setId = (id: string) => {
-    if (id === currId) {
-      return;
-    }
-    dispatch(setNewCurentSlideID(id))
-  }
+  const { presentation, setPresentation } = useContext(PresentationContext);
+  const slides = presentation.slides;
+
+  const changeSlideOrder = (from: number, to: number) => {
+    // console.log(from, to);
+    const removed = slides.splice(from, 1);
+    slides.splice(to, 0, removed[0]);
+    setPresentation({
+      ...presentation,
+      slides: slides,
+    });
+  };
+
+  const { registerDndItem } = useDndList({
+    onOrderChange: changeSlideOrder,
+  });
+
+  const createNewSlide = () => {
+    const NewSlide: TSlide = {
+      background: "#aaaaaa",
+      id: uuidv4(),
+      name: `${uuidv4()}`,
+      objects: [],
+      selectObjects: null,
+    };
+    slides.push(NewSlide);
+    setPresentation({
+      ...presentation,
+      slides: slides,
+    });
+  };
+
   return (
     <div className={style.slide_block}>
-      <div className={style.slide_block_main__wrapper}>
-        {data.slides.length > 0 ? (
-          data.slides.map((slide, index) => (
-            <div
+      <div className={style.slide_block_main__wrapper} id="slides">
+        {slides.length > 0 ? (
+          slides.map((slide, index) => (
+            <SlideList
               key={index}
-              className={
-                slide.id === currId
-                  ? classNames(
-                      style.slide_block__wrapper,
-                      style.wrapper__current,
-                    )
-                  : style.slide_block__wrapper
-              }
-              onClick={() => setId(slide.id)}
-            >
-              <div className={style.visitor}>
-                <Slide slide={slide} className={style.slide_block_slide} />
-              </div>
-            </div>
+              slide={slide}
+              index={index}
+              registerDndItem={registerDndItem}
+            />
           ))
         ) : (
-          <div className={style.slide_block__wrapper}>
+          <div className={style.slide_block__wrapper} onClick={createNewSlide}>
             <div
               className={classNames(style.slide, style.slide_block_new_slide)}
             >
@@ -49,8 +62,8 @@ function SlideBar() {
             </div>
           </div>
         )}
-        {data.slides.length > 0 ? (
-          <div className={style.slide_block__wrapper}>
+        {presentation.slides.length > 0 ? (
+          <div className={style.slide_block__wrapper} onClick={createNewSlide}>
             <div
               className={classNames(
                 style.slide,

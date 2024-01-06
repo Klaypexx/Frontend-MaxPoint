@@ -1,12 +1,10 @@
-/* eslint-disable sort-imports */
+import { PresentationContext } from "../../context/context";
 import style from "../ToolBar/ToolBar.module.css";
-import { useSelector } from "react-redux";
-import { allData } from "../../redux/slide/selectors";
-
+import { useContext } from "react";
 const DownloadButton = () => {
-  const data = useSelector(allData);
+  const { presentation } = useContext(PresentationContext);
   const createFile = () => {
-    const file = new Blob([JSON.stringify(data)], {
+    const file = new Blob([JSON.stringify(presentation)], {
       type: "application/json",
     }); // создаём файл на стороне пользователя
     return file; //возвращаем созданный файл

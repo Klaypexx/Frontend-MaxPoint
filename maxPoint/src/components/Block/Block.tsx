@@ -1,89 +1,147 @@
-/* eslint-disable sort-keys */
-/* eslint-disable sort-imports */
-import style from "./Block.module.css";
-import { CSSProperties, useEffect, useRef, useState } from "react";
+import { CSSProperties, useContext, useEffect, useRef } from "react";
+import Image from "../Image/Image";
+import { PresentationContext } from "../../context/context";
+import Primitive from "../Primitive/Primitive";
 import { Image as TImage } from "../../types/types";
 import { Primitive as TPrimitive } from "../../types/types";
 import { Text as TText } from "../../types/types";
-import { useDnD } from "../../hooks/useDnD/useDnD";
-import { useAppDispatch } from "../../redux/store";
-import Image from "../Image/Image";
-import Primitive from "../Primitive/Primitive";
 import Text from "../Text/Text";
 import classNames from "classnames";
-import { setPosition } from "../../redux/slide/slice";
+import style from "./Block.module.css";
+import { useDnDBlock } from "../../hooks/useDnD/useDragBlock";
 
 type BlockProps = TPrimitive | TImage | TText;
 
-function Block({ position, type, data, id }: BlockProps) {
-  const dispatch = useAppDispatch();
+function getObject(props: BlockProps) {
+  switch (props.type) {
+    case "text":
+      return <Text {...props} />;
+    case "image":
+      return <Image {...props} />;
+    case "primitive":
+      return <Primitive {...props} />;
+  }
+}
+
+function Block(props: BlockProps) {
+  const { size, position, id } = props;
+  const { presentation, setPresentation } = useContext(PresentationContext);
+  const slides = presentation.slides;
+  const currentSlide = slides.find(
+    (slide) => slide.id === presentation.currentSlideID,
+  );
+  const selectedObject = currentSlide?.objects.find(
+    (object) => object.id === currentSlide.selectObjects,
+  );
 
   const styles: CSSProperties = {
-    minHeight: data.size.height,
+    height: size.height,
     left: position.x,
     top: position.y,
-    minWidth: data.size.width,
+    width: size.width,
   };
 
-  const { registerDndItem } = useDnD();
+  const { registerDndItem } = useDnDBlock();
 
   const ref = useRef<HTMLDivElement>(null);
-  const [selectArea, setSelectArea] = useState(false);
 
-  const toggleArea = () => {
-    console.log("toggle");
-    setSelectArea((area) => !area);
+  const toggleArea = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (currentSlide) {
+      if (event.ctrlKey) {
+        currentSlide.selectObjects = null;
+        setPresentation({
+          ...presentation,
+          slides: slides,
+        });
+        return;
+      }
+
+      currentSlide.selectObjects = id;
+      setPresentation({
+        ...presentation,
+        slides: slides,
+      });
+    }
+  };
+
+  const setPosition = (pos: { x: number; y: number }) => {
+    if (currentSlide && selectedObject) {
+      selectedObject.position = { x: pos.x, y: pos.y };
+
+      setPresentation({
+        ...presentation,
+        slides: slides,
+      });
+    }
+  };
+
+  const setSize = (size: { height: number; width: number }) => {
+    if (currentSlide && selectedObject) {
+      selectedObject.size = {
+        height: size.height,
+        width: size.width,
+      };
+
+      setPresentation({
+        ...presentation,
+        slides: slides,
+      });
+    }
   };
 
   useEffect(() => {
     // TODO: эту логику перемещения можно вынести в отдельный компонент, div, который сможет отрисовывать в себе любой контент
-    const { onDragStart } = registerDndItem({
-      elementRef: ref,
-    });
+    const { onChangePosition, onChangeSize } = registerDndItem();
 
     const onMouseDown = (mouseDownEvent: MouseEvent) => {
-      if (!selectArea) {
+      if (selectedObject?.id !== id) {
         return; // Если toggleArea не активен, выходим из функции
       }
-      onDragStart({
-        onDrag: (dragEvent) => {
-          dragEvent.preventDefault();
-          ref.current!.style.top = `${
-            dragEvent.clientY + (position.y - mouseDownEvent.clientY)
-          }px`;
-          ref.current!.style.left = `${
-            dragEvent.clientX + (position.x - mouseDownEvent.clientX)
-          }px`;
-        },
-        onDrop: (dropEvent) => {
-          const pos = {
-            x: dropEvent.clientX + (position.x - mouseDownEvent.clientX),
-            y: dropEvent.clientY + (position.y - mouseDownEvent.clientY),
-          };
-          toggleArea();
-          dispatch(setPosition({ pos, id }));
-        },
-      });
+
+      if (!mouseDownEvent.shiftKey) {
+        // console.log(mouseDownEvent);
+        onChangePosition({
+          onDrag: (dragEvent) => {
+            dragEvent.preventDefault();
+            const pos = {
+              x: dragEvent.clientX + (position.x - mouseDownEvent.clientX),
+              y: dragEvent.clientY + (position.y - mouseDownEvent.clientY),
+            };
+            setPosition(pos);
+          },
+        });
+      } else {
+        onChangeSize({
+          onDrag: (dragEvent) => {
+            dragEvent.preventDefault();
+            const sizes = {
+              height: size.height + dragEvent.clientY - mouseDownEvent.clientY,
+              width: size.width + dragEvent.clientX - mouseDownEvent.clientX,
+            };
+            setSize(sizes);
+          },
+        });
+      }
     };
-    if (selectArea !== null) {
+    if (selectedObject) {
       const control = ref.current!;
       control.addEventListener("mousedown", onMouseDown);
       return () => control.removeEventListener("mousedown", onMouseDown);
     }
-  }, [selectArea]);
+  }, [presentation]);
 
   return (
     <div
       className={
-        selectArea ? classNames(style.block, style.selectArea) : style.block
+        selectedObject?.id == id
+          ? classNames(style.block, style.selectArea)
+          : style.block
       }
       style={styles}
       ref={ref}
-      onDoubleClick={toggleArea}
+      onClick={toggleArea}
     >
-      {type === "image" && <Image data={data} />}
-      {type === "primitive" && <Primitive data={data} />}
-      {type === "text" && <Text data={data} />}
+      {getObject(props)}
     </div>
   );
 }

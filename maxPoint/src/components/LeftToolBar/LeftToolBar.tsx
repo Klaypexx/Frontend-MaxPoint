@@ -1,35 +1,24 @@
-/* eslint-disable sort-imports */
-import text from "../../resources/img/text.png";
-import figures from "../../resources/img/figures.png";
-import photo from "../../resources/img/photo.png";
-import style from "./LeftToolbar.module.css";
+import PhotoButton from "../PhotoButton/PhotoButton";
+import TextButton from "../TextButton/TextButton";
 import UploadButton from "../UploadButton/UploadButton";
-import { useAppDispatch } from "../../redux/store";
-import { changeIsOpen } from "../../redux/someStuff/slice";
+import figures from "../../resources/img/figures.png";
+import style from "./LeftToolbar.module.css";
+type TFunction = {
+  props: () => void;
+};
 
-function Left_ToolBar() {
-  const dispatch = useAppDispatch();
+function Left_ToolBar({ props }: TFunction) {
   return (
     <div className={style.menu_block}>
       <div className={style.menu_block__list}>
+        <TextButton />
         <div className={style.menu_item}>
-          <img className={style.menu_block__img} src={text}></img>
-          <p className={style.menu_block_text}>Text</p>
-        </div>
-
-        <div className={style.menu_item}>
-          <button
-            className={style.figure__button}
-            onClick={() => dispatch(changeIsOpen())}>
+          <button className={style.figure__button} onClick={props}>
             <img className={style.menu_block__img} src={figures}></img>
-            <p className={style.menu_block_text}>Figure</p>
           </button>
+          <p className={style.menu_block_text}>Figure</p>
         </div>
-
-        <div className={style.menu_item}>
-          <img className={style.menu_block__img} src={photo}></img>
-          <p className={style.menu_block_text}>Photos</p>
-        </div>
+        <PhotoButton />
         <UploadButton />
       </div>
     </div>
