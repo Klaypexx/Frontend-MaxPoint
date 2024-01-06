@@ -1,9 +1,7 @@
-/* eslint-disable sort-keys */
-/* eslint-disable sort-imports */
 import { CSSProperties, useContext } from "react";
+import { PresentationContext } from "../../context/context";
 import { Text as TText } from "../../types/types";
 import styles from "./Text.module.css";
-import { PresentationContext } from "../../context/context";
 
 function Text({ data, size }: TText) {
   const { presentation, setPresentation } = useContext(PresentationContext);
@@ -20,14 +18,14 @@ function Text({ data, size }: TText) {
     color: data.color,
     fontFamily: data.fontFamily,
     fontSize: data.fontSize,
-    fontWeight: data.bold ? "bold" : "normal",
     fontStyle: data.fontStyle,
+    fontWeight: data.bold ? "bold" : "normal",
+    height: size.height,
     textDecoration: data.textDecoration,
     userSelect: "none",
-    height: size.height,
     width: size.width,
   };
-  
+
   return (
     <textarea
       className={styles.textarea}

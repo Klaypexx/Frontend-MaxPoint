@@ -1,10 +1,8 @@
 import { ChangeEvent, useContext } from "react";
 import { PresentationContext } from "../../context/context";
-import style from "../LeftToolBar/LeftToolbar.module.css";
-// eslint-disable-next-line sort-imports
-import photo from "../../resources/img/photo.png";
-// eslint-disable-next-line sort-imports
 import { Image as TImage } from "../../types/types";
+import photo from "../../resources/img/photo.png";
+import style from "../LeftToolBar/LeftToolbar.module.css";
 import { v4 as uuidv4 } from "uuid";
 
 const PhotoButton = () => {

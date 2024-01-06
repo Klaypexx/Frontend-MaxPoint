@@ -1,12 +1,11 @@
-/* eslint-disable sort-imports */
-import style from "./Button.module.css";
-import bold from "../../resources/headerButton/bold_48.png";
-import italic from "../../resources/headerButton/italic_48.png";
-import delet from "../../resources/headerButton/delete_48.png";
-import zalivka from "../../resources/headerButton/zalivka_48.png";
-import underline from "../../resources/headerButton/underline_48.png";
 import { useContext, useRef, useState } from "react";
 import { PresentationContext } from "../../context/context";
+import bold from "../../resources/headerButton/bold_48.png";
+import delet from "../../resources/headerButton/delete_48.png";
+import italic from "../../resources/headerButton/italic_48.png";
+import style from "./Button.module.css";
+import underline from "../../resources/headerButton/underline_48.png";
+import zalivka from "../../resources/headerButton/zalivka_48.png";
 
 function Button() {
   const { presentation, setPresentation } = useContext(PresentationContext);

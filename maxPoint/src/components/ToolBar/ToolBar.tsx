@@ -1,12 +1,8 @@
-/* eslint-disable sort-imports */
+import Button from "../Button/Button";
+import DownloadButton from "../downloadButton/DownloadButton.tsx";
+import Title from "../Title/Title";
 import logo from "../../resources/img/logo.png";
 import style from "./ToolBar.module.css";
-
-import Title from "../Title/Title";
-// import History from "../History/History";
-import Button from "../Button/Button";
-import DownloadButton from "../DownloadButton/DownloadButton";
-
 function ToolBar() {
   return (
     <div className={style.header_block}>

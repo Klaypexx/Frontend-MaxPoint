@@ -1,17 +1,16 @@
-/* eslint-disable sort-imports */
-import style from "./Editor.module.css";
-import Left_ToolBar from "../LeftToolBar/LeftToolBar";
-import SlideBar from "../SlideBar/SlideBar";
-import MainView from "../MainView/MainView";
 import FigureMenu from "../FigureMenu/FigureMenu";
+import Left_ToolBar from "../LeftToolBar/LeftToolBar";
+import MainView from "../MainView/MainView";
+import SlideBar from "../SlideBar/SlideBar";
 import classNames from "classnames";
+import style from "./Editor.module.css";
 import { useState } from "react";
 
 function Editor() {
   const [isOpen, setIsOpen] = useState(false);
   const changeIsOpen = () => {
-    setIsOpen((isOpen) => !isOpen)
-  }
+    setIsOpen((isOpen) => !isOpen);
+  };
   return (
     <div
       className={
@@ -20,7 +19,7 @@ function Editor() {
           : style.grid_block
       }
     >
-      <Left_ToolBar props={changeIsOpen}/>
+      <Left_ToolBar props={changeIsOpen} />
       {isOpen ? <FigureMenu /> : null}
 
       <section className={style.working_block_grid}>

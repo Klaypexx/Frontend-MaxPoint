@@ -1,10 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable sort-keys */
-/* eslint-disable sort-imports */
-import { useContext } from "react";
-import style from "./Title.module.css";
-import { useForm } from "react-hook-form";
 import { PresentationContext } from "../../context/context";
+import style from "./Title.module.css";
+import { useContext } from "react";
+import { useForm } from "react-hook-form";
 
 export const Title = () => {
   const { presentation, setPresentation } = useContext(PresentationContext);
@@ -27,10 +24,10 @@ export const Title = () => {
           className={errors.name && style.header_input_name} //если поле содержит ошибку
           value={presentation.name}
           {...register("name", {
-            required: true, //поле является обязательным для ввода
-            minLength: 0, //мин. символов
             maxLength: 15, //макс. символов
+            minLength: 0, //мин. символов
             pattern: /^[a-zA-Zа-яА-Я]*$/,
+            required: true, //поле является обязательным для ввода
           })} // какие символы будем вводить
         />
         {errors.name?.type == "required" && <span>Введите имя</span>}

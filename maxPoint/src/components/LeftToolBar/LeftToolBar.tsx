@@ -1,10 +1,8 @@
-/* eslint-disable sort-keys */
-/* eslint-disable sort-imports */
+import PhotoButton from "../PhotoButton/PhotoButton";
+import TextButton from "../TextButton/TextButton";
+import UploadButton from "../UploadButton/UploadButton";
 import figures from "../../resources/img/figures.png";
 import style from "./LeftToolbar.module.css";
-import TextButton from "../TextButton/TextButton";
-import PhotoButton from "../PhotoButton/PhotoButton";
-import UploadButton from "../UploadButton/UploadButton";
 type TFunction = {
   props: () => void;
 };

@@ -1,16 +1,13 @@
-import text from "../../resources/img/text.png"; 
-// eslint-disable-next-line sort-imports 
-import style from "../LeftToolBar/LeftToolbar.module.css"; 
-import { useContext } from "react"; 
-// eslint-disable-next-line sort-imports 
-import { PresentationContext } from "../../context/context"; 
+import { PresentationContext } from "../../context/context";
 import { Text as TText } from "../../types/types"; 
+import style from "../LeftToolBar/LeftToolbar.module.css"; 
+import text from "../../resources/img/text.png"; 
+import { useContext } from "react"; 
 import { v4 as uuidv4 } from "uuid"; 
- 
+
 const TextButton = () => { 
   const { presentation, setPresentation } = useContext(PresentationContext); 
   const newPresentation = { ...presentation }; 
- 
   const createText = () => { 
     const text: TText = { 
       data: { 

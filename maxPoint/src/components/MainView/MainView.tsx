@@ -1,8 +1,7 @@
-/* eslint-disable sort-imports */
-import style from "./MainView.module.css";
-import Slide from "../Slide/Slide.tsx";
-import { useContext } from "react";
 import { PresentationContext } from "../../context/context.tsx";
+import Slide from "../Slide/Slide.tsx";
+import style from "./MainView.module.css";
+import { useContext } from "react";
 
 function MainView() {
   const { presentation } = useContext(PresentationContext);

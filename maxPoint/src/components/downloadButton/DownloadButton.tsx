@@ -1,8 +1,6 @@
-/* eslint-disable sort-imports */
+import { PresentationContext } from "../../context/context";
 import style from "../ToolBar/ToolBar.module.css";
 import { useContext } from "react";
-import { PresentationContext } from "../../context/context";
-
 const DownloadButton = () => {
   const { presentation } = useContext(PresentationContext);
   const createFile = () => {

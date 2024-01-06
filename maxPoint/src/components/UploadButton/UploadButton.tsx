@@ -1,8 +1,7 @@
-/* eslint-disable sort-imports */
 import { ChangeEvent, useContext } from "react";
-import upload from "../../resources/img/upload.png";
-import style from "../LeftToolBar/LeftToolbar.module.css";
 import { PresentationContext } from "../../context/context";
+import style from "../LeftToolBar/LeftToolbar.module.css";
+import upload from "../../resources/img/upload.png";
 
 const UploadButton = () => {
   const { setPresentation } = useContext(PresentationContext);

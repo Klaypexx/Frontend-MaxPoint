@@ -1,17 +1,14 @@
-/* eslint-disable sort-keys */
-/* eslint-disable sort-imports */
-import style from "./Block.module.css";
 import { CSSProperties, useContext, useEffect, useRef } from "react";
+import Image from "../Image/Image";
+import { PresentationContext } from "../../context/context";
+import Primitive from "../Primitive/Primitive";
 import { Image as TImage } from "../../types/types";
 import { Primitive as TPrimitive } from "../../types/types";
 import { Text as TText } from "../../types/types";
-import { useDnDBlock } from "../../hooks/useDnD/useDragBlock";
-import { PresentationContext } from "../../context/context";
-import Image from "../Image/Image";
-import Primitive from "../Primitive/Primitive";
 import Text from "../Text/Text";
 import classNames from "classnames";
-
+import style from "./Block.module.css";
+import { useDnDBlock } from "../../hooks/useDnD/useDragBlock";
 
 type BlockProps = TPrimitive | TImage | TText;
 
@@ -80,7 +77,6 @@ function Block(props: BlockProps) {
 
   const setSize = (size: { height: number; width: number }) => {
     if (currentSlide && selectedObject) {
-
       selectedObject.size = {
         height: size.height,
         width: size.width,

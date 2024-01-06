@@ -1,14 +1,12 @@
-/* eslint-disable sort-keys */
-/* eslint-disable sort-imports */
-import style from "./SlideBar.module.css";
 import Plus from "../../resources/img/plus.png";
-import classNames from "classnames";
-import SlideList from "../SlideList/SlideList";
-import { useContext } from "react";
 import { PresentationContext } from "../../context/context";
+import SlideList from "../SlideList/SlideList";
 import { Slide as TSlide } from "../../types/types";
-import { v4 as uuidv4 } from "uuid";
+import classNames from "classnames";
+import style from "./SlideBar.module.css";
+import { useContext } from "react";
 import { useDndList } from "../../hooks/useDnD/useDragSlideList";
+import { v4 as uuidv4 } from "uuid";
 
 function SlideBar() {
   const { presentation, setPresentation } = useContext(PresentationContext);
@@ -30,11 +28,11 @@ function SlideBar() {
 
   const createNewSlide = () => {
     const NewSlide: TSlide = {
+      background: "#aaaaaa",
       id: uuidv4(),
       name: `${uuidv4()}`,
-      background: "#aaaaaa",
-      selectObjects: null,
       objects: [],
+      selectObjects: null,
     };
     slides.push(NewSlide);
     setPresentation({

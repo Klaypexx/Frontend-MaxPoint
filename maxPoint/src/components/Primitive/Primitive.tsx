@@ -1,4 +1,3 @@
-
 import { Size } from "../../types/types";
 
 type PrimitiveProps = {
