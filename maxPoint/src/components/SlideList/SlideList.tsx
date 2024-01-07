@@ -18,7 +18,7 @@ const SlideList = (props: SlideListProps) => {
   const { presentation, setPresentation } = useContext(PresentationContext);
   const slides = presentation.slides;
   const [slideID, setSlideID] = useState(slide.id);
-  const [removed, setRemoved] = useState('');
+  const [removed, setRemoved] = useState("");
 
   const setId = (id: string) => {
     // отменить выделение selectObjects если мы переместились на другой слайд

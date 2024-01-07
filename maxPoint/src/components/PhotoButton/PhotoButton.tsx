@@ -17,7 +17,7 @@ const PhotoButton = () => {
     if (event.target.files) {
       file = event.target.files[0];
       reader.readAsDataURL(event.target.files[0]);
-      console.log(event.target.files[0])
+      console.log(event.target.files[0]);
     }
 
     reader.onload = function () {
@@ -26,7 +26,7 @@ const PhotoButton = () => {
           throw Error("invalid file type: " + typeof reader.result);
         if (!file.type.includes("jpeg") && !file.type.includes("png")) {
           throw Error("invalid file: " + file.type);
-        };
+        }
         const image: TImage = {
           data: {
             alt: "не найдено",

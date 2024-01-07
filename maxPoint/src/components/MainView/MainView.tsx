@@ -12,7 +12,7 @@ function MainView() {
 
   if (currentSlide != null) {
     return (
-      <div className={style.working_block} >
+      <div className={style.working_block}>
         <div className={style.working_block__wrapper}>
           <Slide slide={currentSlide} className={style.working_block__slide} />
         </div>

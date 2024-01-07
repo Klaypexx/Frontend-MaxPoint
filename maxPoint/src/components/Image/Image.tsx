@@ -1,7 +1,6 @@
 import { CSSProperties } from "react";
 import { Image as TImage } from "../../types/types";
 
-
 function Image({ data, size }: TImage) {
   const style: CSSProperties = {
     height: size.height,
